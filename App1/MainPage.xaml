@@ -7,7 +7,24 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" BorderThickness="2" RequestedTheme="Light">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="560"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="leftBox" Margin="30,81,310,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="textBox_TextChanged" Height="77" PlaceholderText="Введите текст"/>
+        <TextBox x:Name="rightBox" Margin="310,81,30,92" TextWrapping="Wrap" Text="" TextChanged="textBox_TextChanged"/>
+        <Button x:Name="switchBtn" Content="↔" HorizontalAlignment="Stretch" Margin="264,105,263,113" VerticalAlignment="Stretch" Click="switchBtn_Click"/>
+        <Button x:Name="translateBtn" Content="Перевести" HorizontalAlignment="Stretch" Margin="229,189,229,31" VerticalAlignment="Stretch" Click="translateBtn_Click" Background="#FFF7E313" BorderBrush="#990C0C0C"/>
+        <TextBlock x:Name="leftLabel" Margin="30,158,310,67" TextWrapping="Wrap" Text="English" Opacity="0.65" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock x:Name="rightLabel" Margin="310,158,30,67" TextWrapping="Wrap" Text="Русский" RenderTransformOrigin="0.919,0.55" Opacity="0.65" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Border BorderBrush="#FF838383" BorderThickness="1" HorizontalAlignment="Left" Height="25" Margin="310,158,0,0" VerticalAlignment="Top" Width="220" Opacity="0.5"/>
+        <Border BorderBrush="#FF838383" BorderThickness="1" HorizontalAlignment="Left" Height="25" Margin="30,158,0,0" VerticalAlignment="Top" Width="220" Opacity="0.5"/>
+        <Image x:Name="titleView" HorizontalAlignment="Left" Source="Assets/Title.PNG" Height="34" Margin="34,36,0,0" VerticalAlignment="Top" Width="168"/>
+        <HyperlinkButton Content="Перейти на сайт Яндекса"  HorizontalAlignment="Left" Margin="20,218,0,0" VerticalAlignment="Top" NavigateUri="http://translate.yandex.ru" RenderTransformOrigin="-0.025,0.406"/>
     </Grid>
 </Page>
