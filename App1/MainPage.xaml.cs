@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -20,7 +21,7 @@ namespace App1
         public MainPage()
         {
             this.InitializeComponent();
-            
+
         }
 
         public async Task getTranslation(string text)
@@ -28,12 +29,14 @@ namespace App1
             String uri = "https://translate.yandex.net/api/v1.5/tr/translate?" +
                 "lang=" + translation + "&key=trnsl.1.1.20161024T144122Z.7866028e157a6e7f.369cc952fed6bc6f5303f015c2b0a25415190ebb";
             HttpClient client = new HttpClient();
-            //POST does not work for some reason
-            //StringContent content = new StringContent("text=" + text); 
-            //HttpResponseMessage response = await client.PostAsync(uri, content);
-            //response.EnsureSuccessStatusCode();
-            //string responseXML = await response.Content.ReadAsStringAsync();
-            var responseXML = await client.GetStringAsync(uri + "&text=" + text);
+            var values = new Dictionary<string, string>
+            {
+               { "text", text }
+            };
+            var content = new FormUrlEncodedContent(values);
+            HttpResponseMessage response = await client.PostAsync(uri, content);
+            response.EnsureSuccessStatusCode();
+            string responseXML = await response.Content.ReadAsStringAsync();
             XDocument document = XDocument.Parse(responseXML);
             this.result = document.Root.Element("text").Value;
         }
@@ -58,7 +61,14 @@ namespace App1
         {
             string input = leftBox.Text;
             await getTranslation(input);
-            rightBox.Text = result;
+            try
+            {
+                rightBox.Text = result;
+            }
+            catch (NullReferenceException)
+            {
+                rightBox.Text = "Error";
+            }
         }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
